@@ -4,26 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"/>
     <title>Symtentify</title>
 </head>
 <body>
+{%  if filename %}
     <div class="outside">
         <div class="frame-el">
             <div class="container">
                 <div class="title-el">
-                    <h1>Drop image here:</h1>
+                    <b> {{ data }}</b>
+                    <div class="title">
+                        <img src = "{{filename}}"> 
+                    </div>   
                 </div>
-                <div class="img-dropzone">
-                    <input type="file" class="upload-input" />
-                </div>
-                <button type="button" class="btn" name="uploadbutton">Upload File</button>
             </div>
+            
         </div>
     </div>
-
-
-    <!--    JAVASCRIPT SECTION   -->
-    <script src="script.js"></script>
-</body>
+{% endif %}
+</body> 
 </html>
