@@ -1,6 +1,9 @@
 from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
 from msrest.authentication import ApiKeyCredentials
 from decouple import config
+import flask
+
+app = flask.Flask(__name__)
 
 class App:
     def __init__(self):
@@ -23,12 +26,18 @@ class App:
                 publish_iteration_name="Iteration 2",
                 published_name="Iteration2",
                 image_data=test_data.read())
-
+    
         # Display the results.
         for prediction in results.predictions:
             print ("\t" + prediction.tag_name +
                    ": {0:.2f}%".format(prediction.probability * 100))       
 
-if __name__ == '__main__':
+@app.route('/')
+def index():
     app = App()
     app.img_class()
+    return render_template("index.html")
+
+if __name__ == '__main__':
+    app.run(debug=True)
+    
