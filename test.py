@@ -1,0 +1,34 @@
+from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
+from msrest.authentication import ApiKeyCredentials
+from decouple import config
+
+class App:
+    def __init__(self):
+        # Replace with a valid key
+        self.prediction_key = config('PREDICTION_KEY')
+        self.prediction_resource_id = config('PREDICTION_RESOURCES_ID')
+        self.ENDPOINT = config('ENDPOINT')
+
+
+    def img_class(self):
+        # Now there is a trained endpoint that can be used to make a prediction
+
+        credentials = ApiKeyCredentials(in_headers={"Prediction-key": self.prediction_key})
+        predictor = CustomVisionPredictionClient(self.ENDPOINT, credentials)
+
+        # Open the sample image and get back the prediction results.
+        with open("test.jpg", mode="rb") as test_data:
+            results = predictor.classify_image(
+                project_id=config('PROJECT_ID'),
+                publish_iteration_name="Iteration 2",
+                published_name="Iteration2",
+                image_data=test_data.read())
+
+        # Display the results.
+        for prediction in results.predictions:
+            print ("\t" + prediction.tag_name +
+                   ": {0:.2f}%".format(prediction.probability * 100))       
+
+if __name__ == '__main__':
+    app = App()
+    app.img_class()
