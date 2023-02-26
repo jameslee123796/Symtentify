@@ -99,6 +99,20 @@ h1 {
 /* Information Box (Right) */
 
 .info-el {
-position: absolute;
-left: 550px;
+	position: absolute;
+	left: 550px;
+	font-family: "Open Sans", Helvetica, sans-serif;
+	width: 800px;
 }
+
+.info-el p {
+	font-style: italic;
+}
+
+.info-el h2 {
+	text-decoration: underline;
+}
+
+.info-el ul li {
+	list-style: none;
+  }
