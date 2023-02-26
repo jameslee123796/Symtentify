@@ -29,8 +29,8 @@ class App:
         with open(self.image, mode="rb") as test_data:
             results = predictor.classify_image(
             project_id=config('PROJECT_ID'),
-            publish_iteration_name="Iteration 11",
-            published_name="Iteration11",
+            publish_iteration_name="Iteration 16",
+            published_name="Iteration16",
             image_data=test_data.read())
     
         # Display the results.
@@ -39,7 +39,12 @@ class App:
     def give_results(self, data):
         temp = data.split("\n")
         rashp = temp[0].split(":")[1]
-        norashp = temp[1].split(":")[1]
+        norashp = temp[1].split(":")
+        if "No" in norashp[0]:
+            norashp = norashp[1]
+        else:
+            rashp = norashp[1]
+            norashp = temp[0].split(":")[1]
         if rashp > norashp:
             result = "The symptom appears to be rash with a probability of " + rashp
             pcause = "Major causes of rash includes: Chemicals in cosmetics, latex products, posion ivy and oak"
@@ -47,7 +52,9 @@ class App:
             return [data, result, pcause, rtreat] 
         else:
             result = "The symptom appears to be a non-rash skin-condition with a probability of " + norashp
-            return [data, result]
+            pcause = "Possible symptoms include hives and ezema"
+            rtreat = ""
+            return [data, result, pcause, rtreat]
         
 
 @app.route('/', methods=['GET', 'POST'])
