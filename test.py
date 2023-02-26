@@ -8,7 +8,7 @@ import glob
 
 app = Flask(__name__)
 
-app.config['IMAGE_UPLOADS'] = r"C:\Users\jlee0\Desktop\UCL-CSS-Hackathon\static\images"
+app.config['IMAGE_UPLOADS'] = r"C:\Users\jlee0\Desktop\Symtentify\static\images"
 
 class App:
     def __init__(self, image):
@@ -29,12 +29,26 @@ class App:
         with open(self.image, mode="rb") as test_data:
             results = predictor.classify_image(
             project_id=config('PROJECT_ID'),
-            publish_iteration_name="Iteration 6",
-            published_name="Iteration6",
+            publish_iteration_name="Iteration 11",
+            published_name="Iteration11",
             image_data=test_data.read())
     
         # Display the results.
-        return results.predictions     
+        return results.predictions    
+
+    def give_results(self, data):
+        temp = data.split("\n")
+        rashp = temp[0].split(":")[1]
+        norashp = temp[1].split(":")[1]
+        if rashp > norashp:
+            result = "The symptom appears to be rash with a probability of " + rashp
+            pcause = "Major causes of rash includes: Chemicals in cosmetics, latex products, posion ivy and oak"
+            rtreat = "Recommended treatment for rash is to avoid scratching and apply hydrocortisone cream"
+            return [data, result, pcause, rtreat] 
+        else:
+            result = "The symptom appears to be a non-rash skin-condition with a probability of " + norashp
+            return [data, result]
+        
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -50,13 +64,19 @@ def index():
         app1 = App(os.path.join(app.config['IMAGE_UPLOADS'], filename))
         results = app1.img_class()
         for result in results:
-            data += result.tag_name + ": {0:.2f}%".format(result.probability * 100) + '\n'
+            data += result.tag_name + ": {0:.2f}%".format(result.probability * 100) + "\n"
+        data = app1.give_results(data)
         return render_template("view.html", filename=os.path.join('static', 'images', filename), data=data)
     return render_template("index.html")
 
 if __name__ == '__main__':
-    #app1 = App()
-    #app1.img_class()
+    #app1 = App(r"C:\Users\jlee0\Desktop\Symtentify\static\images\pimple_1024x1024.jpg")
+    #results = app1.img_class()
+    #data = ""
+    #for result in results:
+    #    data += result.tag_name + ": {0:.2f}%".format(result.probability * 100) + "\n"
+    #data = app1.give_results(data)
+    #print(data)
     app.run(debug=True)
 
     

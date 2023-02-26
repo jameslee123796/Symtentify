@@ -13,7 +13,7 @@
         <div class="frame-el">
             <div class="container">
                 <div class="title-el">
-                    <b> {{ data }}</b>
+                    <b> {{ data[0] }}</b>
                     <div class="title">
                         <img src = "{{filename}}"> 
                     </div>   
@@ -25,26 +25,16 @@
             <!-- Information Box (Right) -->
             <div class="info-el">
                 <h2>
-                    <!-- Possible Causes -->
+                    {{ data[2] }}
                 </h2>
                 <p>
-                    <!-- The causes of this disease are x, y, z. -->
+                    {{ data[1] }}
                 </p>
                 <h3>
-                    <!-- Here is a list of diseases that you could possible have: -->
+                    {{ data[3] }}
                 </h3>
-                <ul>
-                    <li>
-                        <!-- Symptom One -->
-                    </li>
-                    <li>
-                        <!-- Symptom Two -->
-                    </li>
-                    <li>
-                        <!-- Symptom Three -->
-                    </li>
-                </ul>
             </div>
+
 {% endif %}
 </body> 
 </html>
