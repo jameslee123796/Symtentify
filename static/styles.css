@@ -11,6 +11,9 @@ body {
 
 /* External Box */
 
+.title img {
+	height: 50px;
+  } 
 
 .frame-el {
 	position: absolute;
