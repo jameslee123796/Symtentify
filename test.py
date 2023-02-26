@@ -70,13 +70,6 @@ def index():
     return render_template("index.html")
 
 if __name__ == '__main__':
-    #app1 = App(r"C:\Users\jlee0\Desktop\Symtentify\static\images\pimple_1024x1024.jpg")
-    #results = app1.img_class()
-    #data = ""
-    #for result in results:
-    #    data += result.tag_name + ": {0:.2f}%".format(result.probability * 100) + "\n"
-    #data = app1.give_results(data)
-    #print(data)
     app.run(debug=True)
 
     
