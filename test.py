@@ -29,8 +29,8 @@ class App:
         with open(self.image, mode="rb") as test_data:
             results = predictor.classify_image(
             project_id=config('PROJECT_ID'),
-            publish_iteration_name="Iteration 16",
-            published_name="Iteration16",
+            publish_iteration_name="Iteration 17",
+            published_name="Iteration17",
             image_data=test_data.read())
     
         # Display the results.
