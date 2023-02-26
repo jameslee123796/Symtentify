@@ -107,12 +107,9 @@ h1 {
 
 .info-el p {
 	font-style: italic;
+	font-size: 24px;
 }
 
 .info-el h2 {
 	text-decoration: underline;
 }
-
-.info-el ul li {
-	list-style: none;
-  }
